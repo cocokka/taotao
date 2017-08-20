@@ -2,6 +2,9 @@ package org.echo.taotao.domain;
 
 import java.util.Date;
 
+/**
+ * 商品
+ */
 public class Item {
     private Long id;
 

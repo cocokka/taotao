@@ -22,7 +22,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Administrator on 8/13/2017.
+ * @Author Administrator
+ * @Date 8/13/2017
+ * @Description
+ * @Version
  */
 @Service("itemService")
 public class ItemServiceImpl implements ItemService {
@@ -50,8 +53,7 @@ public class ItemServiceImpl implements ItemService {
         List<Item> rows = itemMapper.selectByExample(itemExample);
         PageInfo<Item> pageInfo = new PageInfo<>(rows);
         long total = pageInfo.getTotal();
-        DefaultPageBean<Item> result = new DataGridPageBean(total, rows);
-        return result;
+        return (DefaultPageBean<Item>) new DataGridPageBean(total, rows);
     }
 
     @Transactional
@@ -64,47 +66,14 @@ public class ItemServiceImpl implements ItemService {
         item.setUpdated(new Date());
         itemMapper.insert(item);
 
-        TaotaoResult result = saveItemDescription(itemId, itemDescription);
-        if (result.getStatus() != 200) {
-            throw new RuntimeException(result.getMsg());
+        if (!itemParameterItemService.save(itemId, itemParameter)) {
+            logger.error("添加规格参数失败.");
+            return TaotaoResult.bad("添加规格参数失败.");
         }
-
-        result = saveItemParameterItem(itemId, itemParameter);
-        if (result.getStatus() != 200) {
-            throw new RuntimeException(result.getMsg());
+        if (!itemDescriptionService.save(itemId, itemDescription)) {
+            logger.error("添加商品描述信息失败.");
+            return TaotaoResult.bad("添加商品描述信息失败.");
         }
         return TaotaoResult.ok();
-    }
-
-    /**
-     * 添加规格参数
-     *
-     * @param itemId
-     * @param itemParameter
-     * @return
-     */
-    private TaotaoResult saveItemParameterItem(Long itemId, String itemParameter) {
-        boolean flag = itemParameterItemService.save(itemId, itemParameter);
-        if (flag) {
-            return TaotaoResult.ok();
-        } else {
-            return TaotaoResult.build(100, "添加规格参数失败.");
-        }
-    }
-
-    /**
-     * 添加商品描述信息
-     *
-     * @param itemId
-     * @param itemDescription
-     * @return
-     */
-    private TaotaoResult saveItemDescription(Long itemId, String itemDescription) {
-        boolean flag = itemDescriptionService.save(itemId, itemDescription);
-        if (flag) {
-            return TaotaoResult.ok();
-        } else {
-            return TaotaoResult.build(100, "添加商品描述信息失败.");
-        }
     }
 }

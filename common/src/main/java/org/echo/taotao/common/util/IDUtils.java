@@ -18,9 +18,8 @@ public class IDUtils {
         Random random = new Random();
         int end3 = random.nextInt(999);
         //如果不足三位前面补0
-        String str = millis + String.format("%03d", end3);
 
-        return str;
+        return millis + String.format("%03d", end3);
     }
 
     /**
@@ -35,8 +34,7 @@ public class IDUtils {
         int end2 = random.nextInt(99);
         //如果不足两位前面补0
         String str = millis + String.format("%02d", end2);
-        long id = new Long(str);
-        return id;
+        return Long.parseLong(str);
     }
 
 }

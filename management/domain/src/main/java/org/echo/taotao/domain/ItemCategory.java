@@ -2,6 +2,10 @@ package org.echo.taotao.domain;
 
 import java.util.Date;
 
+/**
+ * 商品类别。
+ * 每种类别拥有一个唯一的商品类别参数模板。
+ */
 public class ItemCategory {
     private Long id;
 

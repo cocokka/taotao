@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<table class="easyui-datagrid" id="itemParamList" title="商品列表"
-       data-options="singleSelect:false,collapsible:true,pagination:true,url:'/item/param/list',method:'get',pageSize:30,toolbar:itemParamListToolbar">
+<table class="easyui-datagrid" id="itemParamList" title="商品参数列表"
+       data-options="singleSelect:false,collapsible:true,pagination:true,url:'/itemParameter/list',method:'get',pageSize:30,toolbar:itemParamListToolbar">
     <thead>
     <tr>
         <th data-options="field:'ck',checkbox:true"></th>
@@ -19,7 +19,10 @@
 </div>
 <script>
 
-    function formatItemParamData(value, index) {
+    function formatItemParamData(value, row, index) {
+        if (!value) {
+            return;
+        }
         var json = JSON.parse(value);
         var array = [];
         $.each(json, function (i, e) {
@@ -44,7 +47,7 @@
         iconCls: 'icon-add',
         handler: function () {
             TAOTAO.createWindow({
-                url: "/item-param-add",
+                url: "/views/itemParameter/add"
             });
         }
     }, {
@@ -65,7 +68,7 @@
             $.messager.confirm('确认', '确定删除ID为 ' + ids + ' 的商品规格吗？', function (r) {
                 if (r) {
                     var params = {"ids": ids};
-                    $.post("/item/param/delete", params, function (data) {
+                    $.post("/itemParameter/delete", params, function (data) {
                         if (data.status == 200) {
                             $.messager.alert('提示', '删除商品规格成功!', undefined, function () {
                                 $("#itemParamList").datagrid("reload");

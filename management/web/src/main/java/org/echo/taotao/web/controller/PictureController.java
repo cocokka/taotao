@@ -17,7 +17,10 @@ import java.io.File;
 import java.util.Map;
 
 /**
- * Created by Administrator on 8/15/2017.
+ * @Author Administrator
+ * @Date 8/15/2017
+ * @Description
+ * @Version
  */
 @Controller
 @RequestMapping("/picture")
@@ -25,7 +28,7 @@ public class PictureController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final String upload_temp_dir = "upload/images/";
+    private static final String UPLOAD_TEMP_DIR = "upload/images/";
 
     @Autowired
     private PictureService pictureService;
@@ -33,8 +36,8 @@ public class PictureController {
 
     /**
      * @param uploadFile 该名称是在js组建的指定的(filePostName  : "uploadFile",)
-     * @param request
-     * @return
+     * @param request http request.
+     * @return format result as json string.
      */
     @RequestMapping("upload")
     @ResponseBody
@@ -53,14 +56,14 @@ public class PictureController {
                 String filename = resultMap.get("filename");
                 // 文件保存路径
 
-                String filePath = request.getSession().getServletContext().getRealPath("/") + upload_temp_dir
+                String filePath = request.getSession().getServletContext().getRealPath("/") + UPLOAD_TEMP_DIR
                         + filename;
                 logger.info("the file path is " + filePath);
                 // 转存文件
                 uploadFile.transferTo(new File(filePath));
 
                 result.put("error", 0); // success is 0; failure is 1.
-                result.put("url", upload_temp_dir + filename);
+                result.put("url", UPLOAD_TEMP_DIR + filename);
             } catch (Exception e) {
                 logger.error(e.getMessage(), e);
                 result.put("error", 1);
@@ -72,8 +75,7 @@ public class PictureController {
             result.put("message", "未检测到文件资源");
         }
         //为了保证功能的兼容性，需要把Result转换成json格式的字符串。
-        String json = JsonUtils.objectToJson(result);
-        return json;
+        return JsonUtils.objectToJson(result);
     }
 
 }

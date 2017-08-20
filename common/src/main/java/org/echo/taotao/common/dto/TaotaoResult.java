@@ -34,6 +34,14 @@ public class TaotaoResult {
         return new TaotaoResult(null);
     }
 
+    public static TaotaoResult bad() {
+        return new TaotaoResult(400, "Bad Request", null);
+    }
+
+    public static TaotaoResult bad(Object data) {
+        return new TaotaoResult(400, "Bad Request", data);
+    }
+
     public TaotaoResult() {
 
     }
@@ -87,7 +95,7 @@ public class TaotaoResult {
      *
      * @param jsonData json数据
      * @param clazz    TaotaoResult中的object类型
-     * @return
+     * @return TaotaoResult对象
      */
     public static TaotaoResult formatToPojo(String jsonData, Class<?> clazz) {
         try {
@@ -97,12 +105,10 @@ public class TaotaoResult {
             JsonNode jsonNode = MAPPER.readTree(jsonData);
             JsonNode data = jsonNode.get("data");
             Object obj = null;
-            if (clazz != null) {
-                if (data.isObject()) {
-                    obj = MAPPER.readValue(data.traverse(), clazz);
-                } else if (data.isTextual()) {
-                    obj = MAPPER.readValue(data.asText(), clazz);
-                }
+            if (data.isObject()) {
+                obj = MAPPER.readValue(data.traverse(), clazz);
+            } else if (data.isTextual()) {
+                obj = MAPPER.readValue(data.asText(), clazz);
             }
             return build(jsonNode.get("status").intValue(), jsonNode.get("msg").asText(), obj);
         } catch (Exception e) {
@@ -113,8 +119,8 @@ public class TaotaoResult {
     /**
      * 没有object对象的转化
      *
-     * @param json
-     * @return
+     * @param json json string
+     * @return TaotaoResult对象
      */
     public static TaotaoResult format(String json) {
         try {
@@ -130,7 +136,7 @@ public class TaotaoResult {
      *
      * @param jsonData json数据
      * @param clazz    集合中的类型
-     * @return
+     * @return TaotaoResult对象
      */
     public static TaotaoResult formatToList(String jsonData, Class<?> clazz) {
         try {

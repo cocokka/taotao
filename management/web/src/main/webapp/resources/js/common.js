@@ -189,11 +189,12 @@ var TT = TAOTAO = {
         $(".panel-tool-close").click();
     },
 
+    // 根据选取的商品类别id来判断是否已经有商品参数模板
     changeItemParam: function (node, formId) {
-        $.getJSON("/item/param/query/itemcatid/" + node.id, function (data) {
+        $.getJSON("/itemParameter/query/" + node.id, function (data) {
             if (data.status == 200 && data.data) {
                 $("#" + formId + " .params").show();
-                var paramData = JSON.parse(data.data.paramData);
+                var paramData = JSON.parse(data.data);
                 var html = "<ul>";
                 for (var i in paramData) {
                     var pd = paramData[i];
@@ -202,10 +203,11 @@ var TT = TAOTAO = {
 
                     for (var j in pd.params) {
                         var ps = pd.params[j];
-                        html += "<tr><td class=\"param\"><span>" + ps + "</span>: </td><td><input autocomplete=\"off\" type=\"text\"/></td></tr>";
+                        html += "<tr><td class=\"param\"><span>" + ps + "</span>: </td>" +
+                            "<td><input autocomplete=\"off\" type=\"text\"/></td></tr>";
                     }
 
-                    html += "</li></table>";
+                    html += "</table></li>";
                 }
                 html += "</ul>";
                 $("#" + formId + " .params td").eq(1).html(html);

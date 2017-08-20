@@ -55,7 +55,19 @@
         <maven-clean-plugin.version>2.6.1</maven-clean-plugin.version>
         <maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
         <maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
+        <commons-configuration2.version>2.1.1</commons-configuration2.version>
+        <httpclient.version>4.5.2</httpclient.version>
+        <commons-collections.version>3.2.1</commons-collections.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>alimaven</id>
+            <name>aliyun maven</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+
 
     <dependencyManagement>
         <dependencies>
@@ -258,18 +270,33 @@
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
                 <version>${commons-beanutils.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>commons-net</groupId>
                 <artifactId>commons-net</artifactId>
                 <version>${commons-net.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-configuration2</artifactId>
+                <version>${commons-configuration2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>${commons-collections.version}</version>
+            </dependency>
+
 
             <!-- jackson -->
             <dependency>

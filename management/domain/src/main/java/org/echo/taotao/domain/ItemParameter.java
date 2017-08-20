@@ -2,6 +2,10 @@ package org.echo.taotao.domain;
 
 import java.util.Date;
 
+/**
+ * 商品参数模板， 保存为json格式。
+ * 绑定在商品类别上。
+ */
 public class ItemParameter {
     private Long id;
 
