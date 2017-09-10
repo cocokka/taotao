@@ -11,10 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @Author Administrator
- * @Date 8/18/2017
- * @Description
- * @Version
+ * @author Administrator on 8/18/2017
+ * @version
  */
 @Controller
 @RequestMapping("/itemParameter")

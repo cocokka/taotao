@@ -1,10 +1,8 @@
 package org.echo.taotao.service;
 
 /**
- * @Author Administrator
- * @Date 8/15/2017
- * @Description
- * @Version
+ * @author Administrator on 8/15/2017
+ * @version
  */
 public interface ItemParameterItemService {
 

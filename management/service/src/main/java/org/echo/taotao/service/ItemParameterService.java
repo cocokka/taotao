@@ -4,10 +4,8 @@ import org.echo.taotao.common.dto.DefaultPageBean;
 import org.echo.taotao.domain.ItemParameter;
 
 /**
- * @Author Administrator
- * @Date 8/17/2017
- * @Description
- * @Version
+ * @author Administrator on 8/17/2017
+ * @version
  */
 public interface ItemParameterService {
 

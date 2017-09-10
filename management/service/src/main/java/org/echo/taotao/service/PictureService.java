@@ -1,5 +1,6 @@
 package org.echo.taotao.service;
 
+import java.io.InputStream;
 import java.util.Map;
 
 /**
@@ -11,9 +12,10 @@ public interface PictureService {
      * upload pictures.
      *
      * @param originalName
+     * @param inputStream
      * @return
      * @throws Exception
      */
-    Map<String, String> upload(String originalName) throws Exception;
+    Map<String, String> upload(String originalName, InputStream inputStream) throws Exception;
 
 }
